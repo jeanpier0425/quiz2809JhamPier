@@ -1,0 +1,77 @@
+https://gist.github.com/amartinezg/6b9f61ed0c3c8d2248d0478d39443f28
+
+--Jham Pier Alzate Cardona
+
+
+CREATE TABLESPACE quiz_manana 
+DATAFILE 'datafile1' SIZE 30M,
+    'datafile2' SIZE 30M,
+    'datafile3' SIZE 30M;
+
+
+-----------------------------------------------------------------------------------------------
+
+
+
+CREATE PROFILE estudiante_quiz  LIMIT
+SESSIONS_PER_USER       1
+IDLE_TIME               15;	
+
+
+
+-----------------------------------------------------------------------------------------------
+
+
+CREATE USER carlos_2 
+    IDENTIFIED BY carlos_2 
+    DEFAULT TABLESPACE quiz_manana 
+    QUOTA 10M ON quiz_manana 
+    PROFILE estudiante_quiz;
+
+    GRANT CONNECT TO carlos_2;
+    
+    GRANT CREATE TABLE TO carlos_2;
+    
+
+-----------------------------------------------------------------------------------------------
+
+
+    CREATE USER user2 
+    IDENTIFIED BY user2 
+    DEFAULT TABLESPACE quiz_manana 
+    QUOTA 10M ON quiz_manana 
+    PROFILE estudiante_quiz;
+
+
+  GRANT CONNECT TO user2;
+
+
+
+-----------------------------------------------------------------------------------------------
+
+
+--mis querys
+--1. 
+SELECT ESTU_GENERO, ESTU_FECHANACIMIENTO ,ESTU_consecutivo, ESTU_DEPTO_RESIDE, PUNT_GLOBAL
+FROM ICFES
+ORDER BY PUNT_GLOBAL DESC;
+
+SELECT * FROM ICFES;
+
+--2-
+SELECT ESTU_GENERO, ESTU_FECHANACIMIENTO ,ESTU_consecutivo, ESTU_DEPTO_RESIDE, PUNT_GLOBAL
+FROM ICFES
+WHERE DESEMP_INGLES LIKE 'C';
+
+--3. 
+
+SELECT DISTINCT COLE_NOMBRE_ESTABLECIMIENTO, COUNT(COLE_NOMBRE_ESTABLECIMIENTO)
+FROM ICFES
+GROUP BY COLE_NOMBRE_ESTABLECIMIENTO;
+
+--4. 
+
+SELECT ESTU_MCPIO_RESIDE,COUNT(ESTU_MCPIO_RESIDE)
+FROM ICFES
+WHERE ESTU_MCPIO_RESIDE LIKE 'MONTERIA'
+GROUP BY ESTU_MCPIO_RESIDE;
